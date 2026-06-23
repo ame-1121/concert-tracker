@@ -10,7 +10,7 @@ git init
 git checkout -b gh-pages
 git add -A
 git commit -m "Deploy: $(date '+%Y-%m-%d %H:%M:%S')"
-git remote add origin https://github.com/ame-1121/concert-tracker.git
+git remote add origin https://${GITHUB_TOKEN}@github.com/ame-1121/concert-tracker.git
 git push -f origin gh-pages
 cd ..
 rm -rf dist/.git
