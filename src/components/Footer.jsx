@@ -18,7 +18,7 @@ export default function Footer() {
           <p>本网站与网易云音乐、大麦、秀动等平台无关。</p>
         </div>
         <div className="footer-bottom">
-          <p>🎵 Concert Tracker · 演唱会追踪 · Made with ❤️</p>
+          <p>🎵 Concert Tracker v2 · 演唱会追踪 · 数据更新 2026.06.25 · Made with ❤️</p>
         </div>
       </div>
     </footer>
