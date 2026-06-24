@@ -1,13 +1,13 @@
 import React from 'react';
 
-export default function ArtistPanel({ artists, matchedCount }) {
+export default function ArtistPanel({ artists, matchedCount, displayName }) {
   const topArtists = artists.slice(0, 20);
 
   return (
     <div className="artist-panel">
       <div className="artist-panel-header">
-        <h3>🎧 你的歌单中共有 <strong>{artists.length}</strong> 位歌手</h3>
-        <span className="artist-panel-sub">其中 {matchedCount} 位歌手近期有演出</span>
+        <h3>🎧 {displayName ? `${displayName} 的歌单` : '你的歌单'}中共有 <strong>{artists.length}</strong> 位歌手</h3>
+        <span className="artist-panel-sub">其中 <strong>{matchedCount}</strong> 位歌手近期有演出</span>
       </div>
       <div className="artist-tags">
         {topArtists.map(a => (

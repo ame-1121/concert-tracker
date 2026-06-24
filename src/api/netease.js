@@ -1,61 +1,113 @@
 /**
  * NetEase Cloud Music API 模块
- * 通过公开代理获取用户歌单、歌曲、歌手信息
+ *
+ * 使用两层策略：
+ * 1. 直接调用 music.163.com API（国内可用）
+ * 2. 使用 api.injahow.cn Meting API 获取歌曲（有 CORS 支持）
+ *
+ * CORS: music.163.com 的 user/playlist 接口在中国大陆
+ * 部分网络环境下浏览器可直连。如不行则引导用户。
  */
 
-const API_BASES = [
-  'https://netease-cloud-music-api-opal-psi.vercel.app',
-  'https://netease-cloud-music-api-seven-rose.vercel.app',
-  'https://music-api.xiaomei.me',
-];
+const NETEASE_API = 'https://music.163.com/api';
+const METING_API = 'https://api.injahow.cn/meting';
 
-let currentBaseIdx = 0;
-
-async function request(path, params = {}, retryCount = 0) {
-  const API_BASE = API_BASES[currentBaseIdx];
-  const url = new URL(path, API_BASE);
-  Object.entries(params).forEach(([k, v]) => {
-    if (v !== undefined && v !== null) url.searchParams.set(k, String(v));
+/**
+ * 获取用户歌单列表
+ * 直接调 music.163.com，因为国内可直接访问
+ * 部分浏览器环境可能因 CORS 被拦，需要用户允许第三方Cookie或使用插件
+ */
+export async function getUserPlaylists(uid) {
+  const url = `${NETEASE_API}/user/playlist?uid=${uid}&limit=30`;
+  const res = await fetch(url, {
+    mode: 'cors',
+    credentials: 'omit',
   });
-  try {
-    const res = await fetch(url.toString());
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    if (data.code !== 200) throw new Error(data.message || 'API Error');
-    return data;
-  } catch (err) {
-    console.error(`[NeteaseAPI] ${path}:`, err.message);
-    // 尝试切换备用API
-    if (retryCount < API_BASES.length - 1) {
-      currentBaseIdx = (currentBaseIdx + 1) % API_BASES.length;
-      console.log(`[NeteaseAPI] 切换API: ${API_BASES[currentBaseIdx]}`);
-      return request(path, params, retryCount + 1);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data = await res.json();
+  if (data.code !== 200) throw new Error(data.message || 'API Error');
+  return data.playlist || [];
+}
+
+/**
+ * 通过 Meting API 获取歌单歌曲（有 CORS 头，浏览器友好）
+ */
+export async function getPlaylistTracks(playlistId) {
+  const url = `${METING_API}/?server=netease&type=playlist&id=${playlistId}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data = await res.json();
+  if (!Array.isArray(data)) throw new Error('Invalid response');
+  return data;
+}
+
+/**
+ * 从歌曲列表提取歌手
+ */
+export function extractArtistsFromMetingsongs(songs) {
+  const artistMap = new Map();
+  songs.forEach(song => {
+    const name = song.artist || 'Unknown';
+    // 处理斜杠分隔的多个歌手
+    const names = name.split('/').map(n => n.trim()).filter(Boolean);
+    names.forEach(n => {
+      if (!artistMap.has(n)) {
+        artistMap.set(n, { id: n, name: n, alias: [], songCount: 0, songs: [] });
+      }
+      const entry = artistMap.get(n);
+      entry.songCount++;
+      if (entry.songs.length < 5) {
+        entry.songs.push(song.name);
+      }
+    });
+  });
+  return Array.from(artistMap.values())
+    .sort((a, b) => b.songCount - a.songCount);
+}
+
+/**
+ * 获取用户所有歌单中的所有歌手
+ */
+export async function getAllUserArtists(uid) {
+  const playlists = await getUserPlaylists(uid);
+
+  // 取前15个歌单
+  const targetPlaylists = playlists.slice(0, 15);
+
+  const allArtists = new Map();
+
+  const results = await Promise.allSettled(
+    targetPlaylists.map(p =>
+      getPlaylistTracks(p.id).then(songs => extractArtistsFromMetingsongs(songs))
+    )
+  );
+
+  results.forEach((result, idx) => {
+    if (result.status === 'fulfilled') {
+      result.value.forEach(artist => {
+        if (allArtists.has(artist.name)) {
+          const existing = allArtists.get(artist.name);
+          existing.songCount += artist.songCount;
+          existing.songs = [...new Set([...existing.songs, ...artist.songs])].slice(0, 5);
+        } else {
+          allArtists.set(artist.name, artist);
+        }
+      });
+    } else {
+      console.warn(`Failed: ${targetPlaylists[idx]?.name}`);
     }
-    throw err;
-  }
-}
-
-/** 通过用户名搜索用户UID */
-export async function searchUserByNickname(nickname) {
-  const data = await request('/search', {
-    keywords: nickname,
-    type: 1002,  // 用户搜索
-    limit: 5
   });
-  const users = data.result?.userprofiles || [];
-  if (users.length === 0) throw new Error(`未找到用户: ${nickname}`);
-  // 尝试精确匹配
-  const exact = users.find(u => u.nickname === nickname);
-  return (exact || users[0]).userId;
+
+  return Array.from(allArtists.values())
+    .sort((a, b) => b.songCount - a.songCount);
 }
 
-/** 获取用户详情 */
-export async function getUserDetail(uid) {
-  const data = await request('/user/detail', { uid });
-  return data.profile || data;
-}
-
-/** 解析用户输入：支持数字UID / 昵称 / 主页URL */
+/**
+ * 解析用户输入：支持数字UID / 昵称 / 主页URL
+ *
+ * 昵称搜索需要调用 search API，在国内可能需要 CORS 代理。
+ * 如果失败，提示用户直接使用数字UID。
+ */
 export async function resolveUserId(input) {
   const trimmed = input.trim();
 
@@ -68,89 +120,16 @@ export async function resolveUserId(input) {
     return { uid: trimmed, isNumeric: true };
   }
 
-  // 非数字 → 作为昵称搜索
-  const uid = await searchUserByNickname(trimmed);
-  return { uid: String(uid), isNumeric: false };
-}
+  // 非数字 → 作为昵称
+  // 尝试通过搜索接口反查 UID
+  const searchUrl = `${NETEASE_API}/search/get?s=${encodeURIComponent(trimmed)}&type=1002&limit=5`;
+  const res = await fetch(searchUrl, { mode: 'cors', credentials: 'omit' });
+  if (!res.ok) throw new Error('搜索失败，请使用数字UID');
+  const data = await res.json();
+  const users = data.result?.userprofiles || [];
+  if (users.length === 0) throw new Error(`未找到用户: ${trimmed}`);
 
-/** 获取用户歌单列表 */
-export async function getUserPlaylists(uid) {
-  const data = await request('/user/playlist', { uid });
-  return data.playlist || [];
-}
-
-/** 获取歌单详情（包含歌曲列表） */
-export async function getPlaylistDetail(id) {
-  const data = await request('/playlist/detail', { id });
-  return data.playlist || null;
-}
-
-/** 获取歌单所有歌曲 */
-export async function getPlaylistTracks(id, limit = 500) {
-  const data = await request('/playlist/track/all', { id, limit });
-  return data.songs || [];
-}
-
-/** 从歌曲列表提取所有歌手 */
-export function extractArtistsFromSongs(songs) {
-  const artistMap = new Map();
-  songs.forEach(song => {
-    (song.ar || []).forEach(ar => {
-      if (!artistMap.has(ar.id)) {
-        artistMap.set(ar.id, {
-          id: ar.id,
-          name: ar.name,
-          alias: ar.alias || [],
-          songCount: 0,
-          songs: []
-        });
-      }
-      const entry = artistMap.get(ar.id);
-      entry.songCount++;
-      if (entry.songs.length < 5) {
-        entry.songs.push(song.name);
-      }
-    });
-  });
-  return Array.from(artistMap.values())
-    .sort((a, b) => b.songCount - a.songCount);
-}
-
-/** 获取用户所有歌单中的所有歌手 */
-export async function getAllUserArtists(uid) {
-  const playlists = await getUserPlaylists(uid);
-  const allArtists = new Map();
-
-  // 只取前10个歌单，避免请求过多
-  const targetPlaylists = playlists.slice(0, 10);
-
-  const tracksResults = await Promise.allSettled(
-    targetPlaylists.map(p => getPlaylistTracks(p.id, 200))
-  );
-
-  tracksResults.forEach((result, idx) => {
-    if (result.status === 'fulfilled') {
-      const artists = extractArtistsFromSongs(result.value);
-      artists.forEach(artist => {
-        if (allArtists.has(artist.id)) {
-          const existing = allArtists.get(artist.id);
-          existing.songCount += artist.songCount;
-          existing.songs = [...new Set([...existing.songs, ...artist.songs])].slice(0, 5);
-        } else {
-          allArtists.set(artist.id, artist);
-        }
-      });
-    } else {
-      console.warn(`Failed to fetch playlist: ${targetPlaylists[idx]?.name}`);
-    }
-  });
-
-  return Array.from(allArtists.values())
-    .sort((a, b) => b.songCount - a.songCount);
-}
-
-/** 获取歌手热门歌曲 */
-export async function getArtistHotSongs(artistId) {
-  const data = await request('/artists', { id: artistId });
-  return data;
+  // 优先精确昵称匹配
+  const exact = users.find(u => u.nickname === trimmed);
+  return { uid: String((exact || users[0]).userId), isNumeric: false };
 }
