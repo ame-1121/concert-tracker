@@ -11,7 +11,6 @@ import { getAllUserArtists, resolveUserId } from './api/netease';
 import concerts, { groupByRegion, matchConcertsForArtists } from './data/concerts';
 import embeddedUserArtists from './data/user-artists.json';
 
-// 预置用户：每天都在冬眠- (UID: 468462180)
 const DEFAULT_USER = {
   uid: '468462180',
   displayName: '每天都在冬眠-',
@@ -27,19 +26,17 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
+  const [showOnlyPlaylist, setShowOnlyPlaylist] = useState(true);
   const autoLoaded = useRef(false);
 
-  // 启动时自动加载预置用户 "每天都在冬眠-" 的数据
+  // 启动时自动加载预置用户数据，默认只看歌单里的歌手
   useEffect(() => {
     if (autoLoaded.current) return;
     autoLoaded.current = true;
 
     const embeddedArtists = DEFAULT_USER.artists.map(a => ({
-      id: a.name,
-      name: a.name,
-      alias: [],
-      songCount: a.songCount,
-      songs: a.topSongs || [],
+      id: a.name, name: a.name, alias: [],
+      songCount: a.songCount, songs: a.topSongs || [],
     }));
 
     const matched = matchConcertsForArtists(concerts, embeddedArtists);
@@ -64,33 +61,27 @@ export default function App() {
     try {
       const resolved = await resolveUserId(input.trim());
       setNeteaseId(resolved.uid);
-
       const userArtists = await getAllUserArtists(resolved.uid);
       setArtists(userArtists);
 
       if (userArtists.length === 0) {
         setError('该用户歌单为空或无法读取');
-        const allGrouped = groupByRegion(concerts);
-        setGroupedConcerts(allGrouped);
+        setGroupedConcerts(groupByRegion(concerts));
         setMatchedConcerts(concerts);
       } else {
         const matched = matchConcertsForArtists(concerts, userArtists);
         setMatchedConcerts(matched);
         setGroupedConcerts(groupByRegion(matched));
+        setShowOnlyPlaylist(true); // 搜索后默认只看歌单
       }
     } catch (err) {
       console.error('获取歌单失败:', err);
-
       const msg = err.message || '';
       if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('CORS')) {
-        setError(
-          '⚠️ 浏览器安全策略阻止了跨域请求。\n' +
-          '因为你在上海，网站已预置你的歌单数据，无需搜索即可查看。'
-        );
+        setError('⚠️ 浏览器安全策略阻止了跨域请求。已使用预置歌单数据。');
       } else {
         setError(`获取失败: ${msg}`);
       }
-      // 失败时回退到预置数据
       const embeddedArtists = DEFAULT_USER.artists.map(a => ({
         id: a.name, name: a.name, alias: [],
         songCount: a.songCount, songs: a.topSongs || [],
@@ -112,10 +103,19 @@ export default function App() {
     setArtists([]);
     setHasSearched(false);
     setError('');
+    setShowOnlyPlaylist(false);
     const allGrouped = groupByRegion(concerts);
     setGroupedConcerts(allGrouped);
     setMatchedConcerts(concerts);
   }, []);
+
+  // 根据开关决定显示哪些演出
+  const displayedConcerts = showOnlyPlaylist ? matchedConcerts : concerts;
+  const displayedGrouped = showOnlyPlaylist
+    ? groupedConcerts
+    : groupByRegion(concerts);
+
+  const upcomingMatched = matchedConcerts.filter(c => c.status !== '已结束');
 
   return (
     <div className="app">
@@ -143,36 +143,78 @@ export default function App() {
       )}
 
       <main className="main-content">
+        {/* 筛选开关 + 标题 */}
         <div className="results-header">
           <h2>
-            {hasSearched && artists.length > 0
-              ? `🎤 ${displayName || '你'}歌单中歌手的演出 (${matchedConcerts.length} 场)`
-              : `🎤 全部演出信息 (${matchedConcerts.length} 场)`}
+            {showOnlyPlaylist
+              ? `🎧 ${displayName || '你'}歌单里 ${upcomingMatched.length} 场即将到来的演出`
+              : `🌐 全部 ${displayedConcerts.length} 场演出`}
           </h2>
           <p className="results-subtitle">
-            数据来源：秀动/大麦官方售票 · 艺人工作室官宣 · 小红书@不止live · ⚠️ 均为已确认的真实演出
+            秀动/大麦 · 工作室官宣 · 小红书@不止live · ✅ 已确认真实演出
           </p>
+
+          {/* 筛选开关 */}
+          {hasSearched && artists.length > 0 && (
+            <div className="filter-toggle-row">
+              <button
+                className={`filter-btn ${showOnlyPlaylist ? 'filter-active' : ''}`}
+                onClick={() => {
+                  setShowOnlyPlaylist(true);
+                  setGroupedConcerts(groupByRegion(matchedConcerts));
+                }}
+              >
+                🎧 只看我歌单里的歌手
+                <span className="filter-count">{matchedConcerts.length}</span>
+              </button>
+              <button
+                className={`filter-btn ${!showOnlyPlaylist ? 'filter-active' : ''}`}
+                onClick={() => {
+                  setShowOnlyPlaylist(false);
+                  setGroupedConcerts(groupByRegion(concerts));
+                }}
+              >
+                🌐 浏览所有演出
+                <span className="filter-count">{concerts.length}</span>
+              </button>
+            </div>
+          )}
         </div>
 
-        {!loading && groupedConcerts.length === 0 && hasSearched && (
+        {!loading && displayedGrouped.length === 0 && hasSearched && (
           <EmptyState neteaseId={displayName} onReset={handleReset} />
         )}
 
-        {/* 歌手活动摘要：一眼看到有哪些喜欢的歌手有演出 */}
-        {!loading && matchedConcerts.length > 0 && hasSearched && (
+        {/* 歌手活动摘要 */}
+        {!loading && upcomingMatched.length > 0 && hasSearched && (
           <ArtistActivitySummary
-            concerts={matchedConcerts.filter(c => c.status !== '已结束')}
+            concerts={upcomingMatched}
             userArtists={artists}
           />
         )}
 
-        {/* 按地区展示，上海在最前面 */}
-        {!loading && groupedConcerts.map(group => (
+        {/* 非歌单模式时提醒有多少场不在歌单中 */}
+        {!loading && !showOnlyPlaylist && hasSearched && artists.length > 0 && (
+          <div className="all-shows-notice">
+            🎧 其中 <strong>{matchedConcerts.length}</strong> 场来自你歌单里的歌手，
+            其余 {concerts.length - matchedConcerts.length} 场可能不是你喜欢的歌手。
+            <button
+              onClick={() => { setShowOnlyPlaylist(true); setGroupedConcerts(groupByRegion(matchedConcerts)); }}
+              className="link-btn"
+            >
+              只看歌单歌手 →
+            </button>
+          </div>
+        )}
+
+        {/* 地区展示 */}
+        {!loading && displayedGrouped.map(group => (
           <RegionBlock
             key={group.region}
             region={group.region}
             concerts={group.concerts}
             userArtists={artists}
+            showOnlyPlaylist={showOnlyPlaylist}
           />
         ))}
       </main>

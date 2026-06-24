@@ -12,16 +12,51 @@ const regionMeta = {
   '东北': { icon: '❄️', color: '#74B9FF', cities: '沈阳·大连·长春·哈尔滨' },
 };
 
-export default function RegionBlock({ region, concerts, userArtists = [] }) {
+/** 检查某个演出是否在用户歌单中（含别名、斜杠名、括号名匹配） */
+function isConcertInPlaylist(concert, userArtists) {
+  const concertNames = new Set([
+    concert.artistName.toLowerCase(),
+    ...(concert.artistAliases || []).map(a => a.toLowerCase()),
+  ]);
+
+  for (const artist of userArtists) {
+    const name = (artist.name || '').trim().toLowerCase();
+    if (!name) continue;
+
+    // 直接匹配
+    if (concertNames.has(name)) return true;
+
+    // 斜杠分割
+    if (name.includes('/')) {
+      for (const part of name.split('/').map(n => n.trim()).filter(Boolean)) {
+        if (concertNames.has(part)) return true;
+      }
+    }
+
+    // 括号别名
+    const bracketMatch = name.match(/\(([^)]+)\)/);
+    if (bracketMatch && concertNames.has(bracketMatch[1].trim().toLowerCase())) return true;
+    if (bracketMatch && concertNames.has(name.replace(/\s*\([^)]+\)/, '').trim())) return true;
+
+    // 别名
+    if (artist.alias) {
+      for (const al of artist.alias) {
+        if (concertNames.has(al.toLowerCase())) return true;
+      }
+    }
+  }
+  return false;
+}
+
+export default function RegionBlock({ region, concerts, userArtists = [], showOnlyPlaylist }) {
   const meta = regionMeta[region] || { icon: '📍', color: '#999', cities: '' };
-  const userArtistNames = new Set(userArtists.map(a => a.name));
 
   return (
     <section className="region-block">
       <div className="region-header" style={{ borderLeftColor: meta.color }}>
         <div className="region-title">
           <span className="region-icon">{meta.icon}</span>
-          <h3>{region}地区</h3>
+          <h3>{region === '上海' ? '📍 上海' : `${region}地区`}</h3>
           <span className="region-cities">{meta.cities}</span>
         </div>
         <div className="region-count">
@@ -30,13 +65,19 @@ export default function RegionBlock({ region, concerts, userArtists = [] }) {
       </div>
 
       <div className="concert-grid">
-        {concerts.map((concert, idx) => (
-          <ConcertCard
-            key={`${concert.artistName}-${concert.date}-${idx}`}
-            concert={concert}
-            isInPlaylist={userArtistNames.has(concert.artistName)}
-          />
-        ))}
+        {concerts.map((concert, idx) => {
+          const inPlaylist = isConcertInPlaylist(concert, userArtists);
+          // 在浏览全部模式下，非歌单歌手的卡片降低视觉权重
+          const dimmed = !showOnlyPlaylist && userArtists.length > 0 && !inPlaylist;
+          return (
+            <ConcertCard
+              key={`${concert.artistName}-${concert.date}-${idx}`}
+              concert={concert}
+              isInPlaylist={inPlaylist}
+              dimmed={dimmed}
+            />
+          );
+        })}
       </div>
     </section>
   );

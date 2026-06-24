@@ -17,41 +17,34 @@ export default function SourceCollector() {
   const [sources, setSources] = useState(loadSources);
   const [inputUrl, setInputUrl] = useState('');
   const [inputNote, setInputNote] = useState('');
+  const [inputContent, setInputContent] = useState('');
+  const [showPasteArea, setShowPasteArea] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => { saveSources(sources); }, [sources]);
 
   const handleAdd = () => {
     const url = inputUrl.trim();
-    if (!url) return;
-
-    // 简单校验是否是链接
-    if (!url.startsWith('http') && !url.includes('xhslink.com') && !url.includes('xiaohongshu.com')) {
-      // 也接受纯文本（如帖子ID）
-    }
+    const content = inputContent.trim();
+    if (!url && !content) return;
 
     // 去重
-    if (sources.find(s => s.url === url)) {
-      setInputUrl('');
-      setInputNote('');
+    if (url && sources.find(s => s.url === url)) {
+      setInputUrl(''); setInputNote(''); setInputContent('');
       return;
     }
 
     const now = new Date().toISOString().slice(0, 10);
     setSources(prev => [{
       id: Date.now(),
-      url,
+      url: url || '(纯文本无链接)',
       note: inputNote.trim() || '小红书演出资讯',
+      content: content || '',   // ← 帖子里粘贴的文本内容
       addedAt: now,
-      status: 'pending', // pending | processed
+      status: 'pending',
     }, ...prev]);
-    setInputUrl('');
-    setInputNote('');
+    setInputUrl(''); setInputNote(''); setInputContent('');
     setExpanded(true);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') handleAdd();
   };
 
   const handleDelete = (id) => {
@@ -72,32 +65,58 @@ export default function SourceCollector() {
           type="text"
           value={inputUrl}
           onChange={e => setInputUrl(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="粘贴小红书帖子链接 / 博主主页 / 任何演出信息来源..."
+          placeholder="粘贴小红书 / 微博 / 票务链接..."
           className="source-url-input"
         />
         <input
           type="text"
           value={inputNote}
           onChange={e => setInputNote(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="备注（可选）"
+          placeholder="备注（如：不止live 6.25更新）"
           className="source-note-input"
         />
         <button
           onClick={handleAdd}
-          disabled={!inputUrl.trim()}
+          disabled={!inputUrl.trim() && !inputContent.trim()}
           className="source-add-btn"
         >
-          ➕ 添加来源
+          ➕ 添加
         </button>
       </div>
 
+      {/* 小红书防爬解决方案：直接粘贴文本内容 */}
+      <div className="source-paste-toggle" onClick={() => setShowPasteArea(!showPasteArea)}>
+        <span>
+          📋 {showPasteArea ? '收起' : '展开'}文本粘贴区
+          <span className="source-paste-hint">
+            {' '}— 小红书有反爬机制，请把帖子里的演出信息文字复制粘贴到这里
+          </span>
+        </span>
+        <span className="source-toggle">{showPasteArea ? '▲' : '▼'}</span>
+      </div>
+
+      {showPasteArea && (
+        <textarea
+          value={inputContent}
+          onChange={e => setInputContent(e.target.value)}
+          placeholder={`把帖子里的演出信息复制粘贴到这里，例如：
+
+6/28 瓦肆 VAS｜XXX乐队「巡演名」上海站
+预售￥198 / 全价￥268
+7/5 MAO Livehouse｜YYY 2026巡演...
+...
+（文本会被保存到浏览器，用于后续录入数据库）`}
+          className="source-content-textarea"
+          rows={6}
+        />
+      )}
+
+      {/* 已有来源列表 */}
       {sources.length > 0 && (
         <div className="source-list-container">
           <div className="source-list-header" onClick={() => setExpanded(!expanded)}>
             <span>
-              📥 演出信息来源 ({pending.length} 待处理 · {processed.length} 已收录)
+              📥 已保存来源 ({pending.length} 待处理 · {processed.length} 已收录)
             </span>
             <span className="source-toggle">{expanded ? '▲' : '▼'}</span>
           </div>
@@ -110,13 +129,20 @@ export default function SourceCollector() {
                   {pending.map(s => (
                     <div key={s.id} className="source-item pending">
                       <div className="source-item-info">
-                        <a href={s.url} target="_blank" rel="noopener noreferrer" className="source-link">
-                          {s.note}
-                        </a>
-                        <span className="source-date">{s.addedAt}</span>
+                        <div className="source-item-main">
+                          {s.url !== '(纯文本无链接)' ? (
+                            <a href={s.url} target="_blank" rel="noopener noreferrer" className="source-link">
+                              {s.note}
+                            </a>
+                          ) : (
+                            <span className="source-link-text">{s.note}</span>
+                          )}
+                          {s.content && <span className="source-has-content" title="已附带文本内容">📝</span>}
+                          <span className="source-date">{s.addedAt}</span>
+                        </div>
                       </div>
                       <div className="source-item-actions">
-                        <button onClick={() => handleMarkProcessed(s.id)} title="标记为已处理">✅</button>
+                        <button onClick={() => handleMarkProcessed(s.id)} title="标记已处理">✅</button>
                         <button onClick={() => handleDelete(s.id)} title="删除">🗑️</button>
                       </div>
                     </div>
@@ -130,10 +156,12 @@ export default function SourceCollector() {
                   {processed.map(s => (
                     <div key={s.id} className="source-item processed">
                       <div className="source-item-info">
-                        <a href={s.url} target="_blank" rel="noopener noreferrer" className="source-link">
-                          {s.note}
-                        </a>
-                        <span className="source-date">{s.addedAt}</span>
+                        <div className="source-item-main">
+                          <a href={s.url} target="_blank" rel="noopener noreferrer" className="source-link">
+                            {s.note}
+                          </a>
+                          <span className="source-date">{s.addedAt}</span>
+                        </div>
                       </div>
                       <div className="source-item-actions">
                         <button onClick={() => handleDelete(s.id)} title="删除">🗑️</button>
@@ -147,14 +175,15 @@ export default function SourceCollector() {
 
           {!expanded && pending.length > 0 && (
             <p className="source-hint-collapsed">
-              最近添加：{pending.slice(0, 2).map(s => s.note).join('、')}
+              最近：{pending.slice(0, 3).map(s => s.note + (s.content ? '📝' : '')).join(' · ')}
             </p>
           )}
         </div>
       )}
 
       <p className="source-hint">
-        💡 粘贴链接后，网站会保存记录。数据更新由后台处理并自动部署到演出数据库。
+        💡 <strong>解决小红书无法读取</strong>：把帖子的演出信息文字复制粘贴到文本框中。
+        链接 + 文本一起保存后，我在后台读取并更新到演出数据库。数据存浏览器本地，只有你能看到。
       </p>
     </div>
   );

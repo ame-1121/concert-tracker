@@ -42,14 +42,14 @@ function formatDate(dateStr) {
   return { full: `${m}月${day}日`, weekDay: wd, relative };
 }
 
-export default function ConcertCard({ concert, isInPlaylist }) {
+export default function ConcertCard({ concert, isInPlaylist, dimmed }) {
   const c = concert;
   const typeInfo = typeConfig[c.type] || typeConfig['Livehouse'];
   const statusInfo = statusConfig[c.status] || statusConfig['待定'];
   const dateInfo = formatDate(c.date);
 
   return (
-    <div className={`concert-card ${isInPlaylist ? 'card-matched' : ''}`}>
+    <div className={`concert-card ${isInPlaylist ? 'card-matched' : ''} ${dimmed ? 'card-dimmed' : ''}`}>
       {isInPlaylist && <div className="card-badge">🎧 你的歌单</div>}
 
       <div className="card-type" style={{ background: typeInfo.bg }}>

@@ -827,7 +827,182 @@ body::before {
 }
 
 /* ============================
-   SOURCE COLLECTOR
+   CONCERT CARD - Dimmed
+   ============================ */
+.concert-card.card-dimmed {
+  opacity: 0.55;
+  filter: grayscale(30%);
+  border-color: transparent;
+}
+
+.concert-card.card-dimmed:hover {
+  opacity: 0.8;
+  filter: grayscale(0%);
+}
+
+/* ============================
+   FILTER TOGGLE
+   ============================ */
+.filter-toggle-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: var(--bg-card-hover);
+}
+
+.filter-btn.filter-active {
+  background: var(--gradient-1);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 2px 12px var(--accent-glow);
+}
+
+.filter-count {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ============================
+   ALL SHOWS NOTICE
+   ============================ */
+.all-shows-notice {
+  background: rgba(253, 138, 94, 0.08);
+  border: 1px dashed rgba(253, 138, 94, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.8;
+}
+
+.all-shows-notice strong {
+  color: #FD8A5E;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #a5b4fc;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  font-family: inherit;
+  margin-left: 4px;
+}
+
+.link-btn:hover {
+  color: #c4b5fd;
+}
+
+/* ============================
+   SOURCE COLLECTOR - Textarea
+   ============================ */
+.source-paste-toggle {
+  padding: 10px 16px;
+  margin-top: 8px;
+  background: rgba(139, 92, 246, 0.06);
+  border: 1px dashed rgba(139, 92, 246, 0.2);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.source-paste-toggle:hover {
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.source-paste-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.source-content-textarea {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  background: var(--bg-primary);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: inherit;
+  line-height: 1.7;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.source-content-textarea:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.source-content-textarea::placeholder {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.source-has-content {
+  font-size: 12px;
+}
+
+.source-link-text {
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.source-item-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ============================
+   SOURCE COLLECTOR (base)
    ============================ */
 .source-collector {
   max-width: 1200px;
