@@ -664,6 +664,198 @@ const concerts = [
     source: "秀动",
     verified: true
   },
+
+  // ═══════════════════ 🆕 上海专场汇总 (2026-06-25) ═══════════════════
+
+  // --- 瓦肆 VAS ear ---
+  {
+    artistName: "Cicada", artistAliases: [],
+    concertName: "Cicada「凝视白色的边界」2026巡回·上海站",
+    date: "2026-07-12", time: "20:30", city: "上海", region: "华东",
+    venue: "瓦肆 VAS ear（普陀沪西店）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "象乐队", artistAliases: [],
+    concertName: "象乐队「山风吹过乌云朵」2026巡演·上海站",
+    date: "2026-07-19", time: "20:30", city: "上海", region: "华东",
+    venue: "瓦肆 VAS ear（普陀沪西店）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "桃德李", artistAliases: ["Todd Li"],
+    concertName: "桃德李 Todd Li「Somewhere maybe」2026巡演·上海站",
+    date: "2026-07-26", time: "20:30", city: "上海", region: "华东",
+    venue: "瓦肆 VAS ear（普陀沪西店）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "Friko", artistAliases: [],
+    concertName: "Friko 2026上海专场",
+    date: "2026-07-31", time: "20:30", city: "上海", region: "华东",
+    venue: "瓦肆 VAS ear（普陀沪西店）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "BADBADNOTGOOD", artistAliases: ["BBNG"],
+    concertName: "BADBADNOTGOOD 2026巡演·上海站",
+    date: "2026-07-15", time: "20:30", city: "上海", region: "华东",
+    venue: "瓦肆 VAS ear（普陀沪西店）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "苏菲·珊曼妮", artistAliases: ["Sophie Zelmani"],
+    concertName: "苏菲·珊曼妮 Sophie Zelmani 2026上海专场",
+    date: "2026-06-14", time: "20:00", city: "上海", region: "华东",
+    venue: "瓦肆 VAS ear（普陀沪西店）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "OuttaWave", artistAliases: [],
+    concertName: "OuttaWave「南下 南下」2026巡演·上海站",
+    date: "2026-06-13", time: "20:30", city: "上海", region: "华东",
+    venue: "瓦肆 VAS ear（普陀沪西店）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "SinceTMRW", artistAliases: [],
+    concertName: "SinceTMRW「始于明天」TOUR 2026·上海站",
+    date: "2026-06-18", time: "20:30", city: "上海", region: "华东",
+    venue: "瓦肆 VAS ear（普陀沪西店）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+
+  // --- MAO Livehouse ---
+  {
+    artistName: "李润祺", artistAliases: [],
+    concertName: "李润祺「发条鸟的幻想曲-限时降落」上海站",
+    date: "2026-06-19", time: "20:00", city: "上海", region: "华东",
+    venue: "MAO Livehouse 上海", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动/MAO", verified: true
+  },
+  {
+    artistName: "PLINI", artistAliases: [],
+    concertName: "PLINI 澳大利亚前卫金属乐队2026巡演·上海站",
+    date: "2026-07-21", time: "20:30", city: "上海", region: "华东",
+    venue: "MAO Livehouse 上海", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动/MAO", verified: true, price: "¥320"
+  },
+  {
+    artistName: "WIZTHEMC", artistAliases: [],
+    concertName: "SHOW ME LOVE - WIZTHEMC 2026巡演·上海站",
+    date: "2026-08-01", time: "20:00", city: "上海", region: "华东",
+    venue: "MAO Livehouse 上海", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动/MAO", verified: true
+  },
+  {
+    artistName: "奈热乐队", artistAliases: [],
+    concertName: "奈热乐队「在蒙古包旁边跳舞」2026年巡演·上海站",
+    date: "2026-06-22", time: "20:00", city: "上海", region: "华东",
+    venue: "MAO Livehouse 上海", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动/MAO", verified: true
+  },
+  {
+    artistName: "张泽", artistAliases: [],
+    concertName: "张泽「张嘴就来」BEATBOX巡演·上海站",
+    date: "2026-07-24", time: "20:00", city: "上海", region: "华东",
+    venue: "MAO Livehouse 上海", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true, price: "¥198-398"
+  },
+
+  // --- Modern Sky LAB ---
+  {
+    artistName: "DIIV", artistAliases: [],
+    concertName: "DIIV 美国布鲁克林独立摇滚 2026上海专场",
+    date: "2026-07-04", time: "19:00", city: "上海", region: "华东",
+    venue: "Modern Sky LAB（瑞虹天地）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "摩登天空/秀动", verified: true, price: "¥268起"
+  },
+  {
+    artistName: "GoGo Penguin", artistAliases: [],
+    concertName: "GoGo Penguin 英国爵士电子三重奏2026巡演·上海站",
+    date: "2026-07-22", time: "20:30", city: "上海", region: "华东",
+    venue: "Modern Sky LAB（瑞虹天地）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "声厂呈现/秀动", verified: true, price: "¥320"
+  },
+  {
+    artistName: "上海复兴方案", artistAliases: ["Shanghai Restoration Project"],
+    concertName: "上海复兴方案 2026 新专巡演·上海站",
+    date: "2026-07-05", time: "20:30", city: "上海", region: "华东",
+    venue: "Modern Sky LAB（瑞虹天地）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "达闻西", artistAliases: [],
+    concertName: "达闻西「多云转晴」2026巡演·上海站",
+    date: "2026-06-05", time: "20:30", city: "上海", region: "华东",
+    venue: "Modern Sky LAB（瑞虹天地）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "摩登天空/秀动", verified: true
+  },
+  {
+    artistName: "达达乐队", artistAliases: ["达达"],
+    concertName: "达达乐队「真实的片刻」2026巡演·上海站",
+    date: "2026-07-31", time: "20:30", city: "上海", region: "华东",
+    venue: "Modern Sky LAB（瑞虹天地）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "摩登天空/秀动", verified: true
+  },
+  {
+    artistName: "Sea Power", artistAliases: [],
+    concertName: "Sea Power 2026中国巡演·上海站",
+    date: "2026-07-20", time: "20:30", city: "上海", region: "华东",
+    venue: "Modern Sky LAB（瑞虹天地）", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "时光代理人", artistAliases: [],
+    concertName: "「时光代理人」LIVE 2026音乐巡演·上海站",
+    date: "2026-07-25", time: "19:30", city: "上海", region: "华东",
+    venue: "Modern Sky LAB（瑞虹天地）", type: "Livehouse",
+    status: "即将开票", ticketUrl: "https://www.showstart.com", source: "摩登天空", verified: true
+  },
+
+  // --- 其他上海场馆 ---
+  {
+    artistName: "遗忘俱乐部", artistAliases: ["刘忻"],
+    concertName: "遗忘俱乐部「所到之处」2026巡演·上海站",
+    date: "2026-06-13", time: "20:00", city: "上海", region: "华东",
+    venue: "LIVERSE 音宇宙艺术中心", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "Mac Ova Seas", artistAliases: ["李佳隆"],
+    concertName: "Mac Ova Seas & 李佳隆《闪电回响》上海专场",
+    date: "2026-06-20", time: "20:00", city: "上海", region: "华东",
+    venue: "回响之地·长宁馆", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "WindMax", artistAliases: [],
+    concertName: "WindMax「Medusa」2026 Fan-CON·上海站",
+    date: "2026-06-27", time: "19:00", city: "上海", region: "华东",
+    venue: "ME HUB·LIVE HOUSE", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "Chainhaha", artistAliases: [],
+    concertName: "Chainhaha「三粒种子」2026巡演·上海站",
+    date: "2026-07-05", time: "20:30", city: "上海", region: "华东",
+    venue: "育音堂小镇 C厅", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "生煎唱片/秀动", verified: true
+  },
+  {
+    artistName: "沙夸歌糕七", artistAliases: [],
+    concertName: "沙夸歌糕七 上海端午特别演出",
+    date: "2026-06-19", time: "20:30", city: "上海", region: "华东",
+    venue: "沪西/育音堂/7HERTZ LIVE", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true
+  },
+  {
+    artistName: "于梓贝", artistAliases: [],
+    concertName: "于梓贝「夏日出逃之必要」2026夏季巡演·上海站",
+    date: "2026-08-08", time: "20:00", city: "上海", region: "华东",
+    venue: "Encore 意空间", type: "Livehouse",
+    status: "已开票", ticketUrl: "https://www.showstart.com", source: "秀动", verified: true, price: "¥148 / VIP¥248 / 双人¥268"
+  },
 ];
 
 export default concerts;

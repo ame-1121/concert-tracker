@@ -3,6 +3,7 @@ import Header from './components/Header';
 import RegionBlock from './components/RegionBlock';
 import ArtistPanel from './components/ArtistPanel';
 import ArtistActivitySummary from './components/ArtistActivitySummary';
+import SourceCollector from './components/SourceCollector';
 import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
 import EmptyState from './components/EmptyState';
@@ -176,6 +177,7 @@ export default function App() {
         ))}
       </main>
 
+      <SourceCollector />
       <Footer />
     </div>
   );
