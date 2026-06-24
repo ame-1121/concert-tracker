@@ -522,6 +522,18 @@ body::before {
   color: var(--text-muted);
 }
 
+.status-free {
+  background: rgba(78, 205, 196, 0.2);
+  color: #4ECDC4;
+  font-weight: 700;
+}
+
+.status-ended {
+  background: rgba(160, 160, 192, 0.08);
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
 .source-tag {
   font-size: 11px;
   color: var(--text-muted);
@@ -552,6 +564,48 @@ body::before {
 .card-action-soldout {
   background: rgba(255, 107, 107, 0.15);
   color: #FF6B6B;
+}
+
+.card-action-free {
+  background: rgba(78, 205, 196, 0.2);
+  color: #4ECDC4;
+  font-weight: 700;
+}
+
+.card-action-ended {
+  background: rgba(160, 160, 192, 0.08);
+  color: var(--text-muted);
+}
+
+.card-action-watch {
+  background: rgba(253, 138, 94, 0.12) !important;
+  color: #FD8A5E !important;
+  font-size: 12px !important;
+  padding: 8px !important;
+}
+
+/* Verified badge */
+.verified-badge {
+  margin-left: auto;
+  background: rgba(78, 205, 196, 0.3);
+  color: #4ECDC4;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+/* Price text */
+.price-text {
+  color: #4ECDC4;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Ended relative date */
+.meta-relative.ended {
+  color: var(--text-muted) !important;
+  font-weight: 400;
 }
 
 /* ============================

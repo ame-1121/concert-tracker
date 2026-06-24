@@ -1,439 +1,700 @@
 /**
- * 演唱会 & Livehouse 数据库
+ * 演唱会 & Livehouse 真实演出数据库
+ *
+ * ⚠️ 本文件仅包含已验证的真实演出信息
  *
  * 数据来源：
- * - 各地文化和旅游局官网 - 营业性演出准予许可公示
- * - 大麦网、秀动、正在现场等票务平台
- * - 小红书 @不止live 等博主
+ *   ✅ 大麦网/秀动/猫眼 已上架售票
+ *   ✅ 艺人官方微博/工作室官宣
+ *   ✅ 各省市文旅局营业性演出许可公示
+ *   ✅ 有演/新锐票务等演出聚合平台交叉验证
  *
- * 数据结构见下方 concerts 数组
+ * 更新日期：2026-06-24
+ * 建议更新频率：每周一次
  */
 
 const concerts = [
-  // ==================== 华东地区 ====================
-  // -- 上海 --
+  // ═══════════════════════════════════════════
+  // 🎧 以下演出匹配「每天都在冬眠-」歌单歌手
+  // ═══════════════════════════════════════════
+
+  // ==================== Ivoris「Pour My Heart Out」2026中国巡演 ====================
+  // 来源：漠星制造官宣 https://weibo.com/2/detail/5313035067460187
+  // 交叉验证：有演网 https://www.youyanchu.com/yanchu/51769.html
+  // 票务：秀动/大麦 已开票
   {
-    artistName: "林俊杰",
-    artistAliases: ["JJ Lin"],
-    concertName: "林俊杰 JJ20 世界巡回演唱会·上海站",
+    artistName: "Ivoris",
+    artistAliases: ["艾薇瑞思", "ivoris"],
+    concertName: "Ivoris 首张专辑「Pour My Heart Out」2026中国巡演·广州站",
+    date: "2026-08-15", time: "20:00",
+    city: "广州", region: "华南",
+    venue: "疆进酒 OMNI SPACE（1号馆）", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "漠星制造官宣/秀动",
+    verified: true,
+    price: "预售¥198 / 全价¥268 / VIP¥358"
+  },
+  {
+    artistName: "Ivoris",
+    artistAliases: ["艾薇瑞思", "ivoris"],
+    concertName: "Ivoris 首张专辑「Pour My Heart Out」2026中国巡演·深圳站",
+    date: "2026-08-16", time: "20:00",
+    city: "深圳", region: "华南",
+    venue: "HOU LIVE（下沙店）", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "漠星制造官宣/秀动",
+    verified: true,
+    price: "预售¥198 / 全价¥268 / VIP¥358"
+  },
+  {
+    artistName: "Ivoris",
+    artistAliases: ["艾薇瑞思", "ivoris"],
+    concertName: "Ivoris「Pour My Heart Out」2026中国巡演·西安站",
+    date: "2026-08-19", time: "20:00",
+    city: "西安", region: "西北",
+    venue: "西演SPACE·光圈CLUB", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "漠星制造官宣/秀动",
+    verified: true,
+    price: "预售¥198 / 全价¥268 / VIP¥358"
+  },
+  {
+    artistName: "Ivoris",
+    artistAliases: ["艾薇瑞思", "ivoris"],
+    concertName: "Ivoris「Pour My Heart Out」2026中国巡演·南京站",
+    date: "2026-08-21", time: "20:00",
+    city: "南京", region: "华东",
+    venue: "1701 Live House", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "漠星制造官宣/秀动",
+    verified: true,
+    price: "预售¥198 / 全价¥268 / VIP¥358"
+  },
+  {
+    artistName: "Ivoris",
+    artistAliases: ["艾薇瑞思", "ivoris"],
+    concertName: "Ivoris「Pour My Heart Out」2026中国巡演·杭州站",
+    date: "2026-08-22", time: "20:00",
+    city: "杭州", region: "华东",
+    venue: "蛙厂RMMF（新天地店）", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "漠星制造官宣/秀动",
+    verified: true,
+    price: "预售¥198 / 全价¥268 / VIP¥358"
+  },
+  {
+    artistName: "Ivoris",
+    artistAliases: ["艾薇瑞思", "ivoris"],
+    concertName: "Ivoris「Pour My Heart Out」2026中国巡演·上海站",
+    date: "2026-08-23", time: "20:00",
+    city: "上海", region: "华东",
+    venue: "瓦肆 VAS ear（普陀沪西店）", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "漠星制造官宣/有演网/247tickets",
+    verified: true,
+    price: "预售¥198 / 全价¥268 / VIP¥358"
+  },
+  {
+    artistName: "Ivoris",
+    artistAliases: ["艾薇瑞思", "ivoris"],
+    concertName: "Ivoris「Pour My Heart Out」2026中国巡演·成都站",
+    date: "2026-08-28", time: "20:00",
+    city: "成都", region: "西南",
+    venue: "LITTLES LIVE 小酒馆（万象城店）", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "漠星制造官宣/有演网/秀动",
+    verified: true,
+    price: "预售¥198 / 全价¥268 / VIP¥358"
+  },
+
+  // ==================== LÜCY 2026 TOUR ====================
+  // 来源：官方微博 https://weibo.com/2/detail/5313025741687567
+  // 开票时间：2026.6.24 14:00（今天！）
+  // 票务：秀动 全价¥228 / VIP¥388
+  {
+    artistName: "LÜCY",
+    artistAliases: ["露西姑妈", "LUCY"],
+    concertName: "LÜCY 2026 TOUR·深圳站",
+    date: "2026-09-05", time: "20:00",
+    city: "深圳", region: "华南",
+    venue: "MAO Livehouse 深圳（海上世界）", type: "Livehouse",
+    status: "即将开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "官方微博/秀动",
+    verified: true,
+    price: "全价¥228 / VIP¥388"
+  },
+  {
+    artistName: "LÜCY",
+    artistAliases: ["露西姑妈", "LUCY"],
+    concertName: "LÜCY 2026 TOUR·广州站",
+    date: "2026-09-06", time: "20:00",
+    city: "广州", region: "华南",
+    venue: "声音共和 Livehouse", type: "Livehouse",
+    status: "即将开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "官方微博/秀动",
+    verified: true,
+    price: "全价¥228 / VIP¥388"
+  },
+  {
+    artistName: "LÜCY",
+    artistAliases: ["露西姑妈", "LUCY"],
+    concertName: "LÜCY 2026 TOUR·北京站",
+    date: "2026-09-09", time: "20:00",
+    city: "北京", region: "华北",
+    venue: "1919 LIVEHOUSE", type: "Livehouse",
+    status: "即将开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "官方微博/秀动",
+    verified: true,
+    price: "全价¥228 / VIP¥388"
+  },
+  {
+    artistName: "LÜCY",
+    artistAliases: ["露西姑妈", "LUCY"],
+    concertName: "LÜCY 2026 TOUR·成都站",
+    date: "2026-09-11", time: "20:00",
+    city: "成都", region: "西南",
+    venue: "正火艺术中心 1号馆", type: "Livehouse",
+    status: "即将开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "官方微博/秀动",
+    verified: true,
+    price: "全价¥228 / VIP¥388"
+  },
+  {
+    artistName: "LÜCY",
+    artistAliases: ["露西姑妈", "LUCY"],
+    concertName: "LÜCY 2026 TOUR·厦门站",
+    date: "2026-09-13", time: "20:00",
+    city: "厦门", region: "华东",
+    venue: "Ovogo 旺来现场", type: "Livehouse",
+    status: "即将开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "官方微博/秀动",
+    verified: true,
+    price: "全价¥228 / VIP¥388"
+  },
+  {
+    artistName: "LÜCY",
+    artistAliases: ["露西姑妈", "LUCY"],
+    concertName: "LÜCY 2026 TOUR·上海站",
+    date: "2026-09-16", time: "20:00",
+    city: "上海", region: "华东",
+    venue: "ModernSkyLAB 上海", type: "Livehouse",
+    status: "即将开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "官方微博/秀动",
+    verified: true,
+    price: "全价¥228 / VIP¥388"
+  },
+  {
+    artistName: "LÜCY",
+    artistAliases: ["露西姑妈", "LUCY"],
+    concertName: "LÜCY 2026 TOUR·杭州站",
+    date: "2026-09-17", time: "20:00",
+    city: "杭州", region: "华东",
+    venue: "LiveShop Uni 由你现场", type: "Livehouse",
+    status: "即将开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "官方微博/秀动",
+    verified: true,
+    price: "全价¥228 / VIP¥388"
+  },
+
+  // ==================== 李荣浩「黑马」世界巡回演唱会 ====================
+  // 来源：大麦/猫眼已上架 https://www.youyanchu.com/yanchu/46239.html
+  {
+    artistName: "李荣浩",
+    artistAliases: [],
+    concertName: "李荣浩「黑马」世界巡回演唱会·苏州站",
+    date: "2026-07-04", time: "19:30",
+    city: "苏州", region: "华东",
+    venue: "苏州奥体中心体育场", type: "演唱会",
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦/猫眼",
+    verified: true
+  },
+  {
+    artistName: "李荣浩",
+    artistAliases: [],
+    concertName: "李荣浩「黑马」世界巡回演唱会·天津站",
+    date: "2026-07-11", time: "19:30",
+    city: "天津", region: "华北",
+    venue: "天津奥体中心体育场", type: "演唱会",
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦/猫眼",
+    verified: true
+  },
+  {
+    artistName: "李荣浩",
+    artistAliases: [],
+    concertName: "李荣浩「黑马」世界巡回演唱会·沈阳站",
     date: "2026-08-08", time: "19:30",
-    city: "上海", region: "华东",
-    venue: "上海体育场", type: "演唱会",
-    status: "即将开票", ticketUrl: "https://damai.cn",
-    source: "大麦网"
+    city: "沈阳", region: "东北",
+    venue: "沈阳奥体中心体育场", type: "演唱会",
+    status: "即将开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦/审批已过/待上架",
+    verified: true
   },
+
+  // ==================== 许嵩「安泊猜想」巡回演唱会 ====================
+  // 来源：https://www.youyanchu.com/yanchu/53040.html
   {
-    artistName: "陈奕迅",
-    artistAliases: ["Eason Chan"],
-    concertName: "陈奕迅 FEAR AND DREAMS 巡回·上海站",
-    date: "2026-07-25", time: "19:30",
-    city: "上海", region: "华东",
-    venue: "梅赛德斯-奔驰文化中心", type: "演唱会",
-    status: "已开票", ticketUrl: "https://damai.cn",
-    source: "上海市文旅局"
-  },
-  {
-    artistName: "周杰伦",
-    artistAliases: ["Jay Chou"],
-    concertName: "周杰伦「嘉年华」巡回演唱会·上海站",
-    date: "2026-07-18", time: "19:30",
-    city: "上海", region: "华东",
-    venue: "上海体育场", type: "演唱会",
-    status: "已开票", ticketUrl: "https://damai.cn",
-    source: "上海市文旅局"
-  },
-  {
-    artistName: "五月天",
-    artistAliases: ["Mayday"],
-    concertName: "五月天「回到那一天」25周年巡回·上海站",
-    date: "2026-09-12", time: "18:30",
-    city: "上海", region: "华东",
-    venue: "上海体育场", type: "演唱会",
-    status: "待定", ticketUrl: "",
-    source: "上海市文旅局"
-  },
-  {
-    artistName: "告五人",
-    artistAliases: ["Accusefive"],
-    concertName: "告五人「宇宙的有趣」2026巡演·上海站",
-    date: "2026-07-05", time: "20:00",
-    city: "上海", region: "华东",
-    venue: "Modern Sky Lab", type: "Livehouse",
-    status: "已开票", ticketUrl: "https://www.showstart.com",
-    source: "秀动"
-  },
-  // -- 杭州 --
-  {
-    artistName: "邓紫棋",
-    artistAliases: ["G.E.M.", "GEM"],
-    concertName: "邓紫棋 I AM GLORIA 巡回演唱会·杭州站",
-    date: "2026-08-15", time: "19:30",
+    artistName: "许嵩",
+    artistAliases: ["Vae"],
+    concertName: "许嵩「安泊猜想」巡回演唱会·杭州站",
+    date: "2026-07-24", time: "19:30",
     city: "杭州", region: "华东",
     venue: "杭州奥体中心体育场", type: "演唱会",
-    status: "即将开票", ticketUrl: "https://damai.cn",
-    source: "浙江省文旅厅"
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦/官方微博",
+    verified: true
   },
   {
-    artistName: "万能青年旅店",
-    artistAliases: ["万青", "Omnipotent Youth Society"],
-    concertName: "万能青年旅店 2026夏季巡演·杭州站",
-    date: "2026-07-12", time: "20:30",
-    city: "杭州", region: "华东",
-    venue: "66 LIVEHOUSE", type: "Livehouse",
-    status: "已开票", ticketUrl: "https://www.showstart.com",
-    source: "秀动"
+    artistName: "许嵩",
+    artistAliases: ["Vae"],
+    concertName: "许嵩「安泊猜想」巡回演唱会·武汉站",
+    date: "2026-07-31", time: "19:30",
+    city: "武汉", region: "华中",
+    venue: "武汉体育中心主体育场", type: "演唱会",
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦/官方微博",
+    verified: true
   },
+  {
+    artistName: "许嵩",
+    artistAliases: ["Vae"],
+    concertName: "许嵩「安泊猜想」巡回演唱会·洛阳站",
+    date: "2026-08-28", time: "19:30",
+    city: "洛阳", region: "华中",
+    venue: "洛阳奥体中心体育场", type: "演唱会",
+    status: "即将开票",
+    ticketUrl: "https://damai.cn",
+    source: "审批已过/待上架",
+    verified: true
+  },
+  {
+    artistName: "许嵩",
+    artistAliases: ["Vae"],
+    concertName: "许嵩「安泊猜想」巡回演唱会·天津站",
+    date: "2026-09-24", time: "19:30",
+    city: "天津", region: "华北",
+    venue: "天津奥体中心体育场", type: "演唱会",
+    status: "即将开票",
+    ticketUrl: "https://damai.cn",
+    source: "审批已过/待上架",
+    verified: true
+  },
+
+  // ==================== 橘子海 (Orange Ocean) ====================
+  // 来源：夏至音乐日官宣 https://www.sohu.com/a/1040058371_121019331
   {
     artistName: "橘子海",
     artistAliases: ["Orange Ocean", "橘子海 (Orange Ocean)"],
-    concertName: "橘子海「EXCEL」2026主题巡演·杭州站",
-    date: "2026-08-22", time: "20:30",
-    city: "杭州", region: "华东",
-    venue: "MAO Livehouse", type: "Livehouse",
-    status: "即将开票", ticketUrl: "https://www.showstart.com",
-    source: "秀动"
+    concertName: "中法夏至音乐日·武汉站（免费）",
+    date: "2026-06-26", time: "18:30",
+    city: "武汉", region: "华中",
+    venue: "武商MALL SVIP停车场", type: "音乐节",
+    status: "免费",
+    ticketUrl: "",
+    source: "法国驻武汉总领馆/夏至音乐日官宣",
+    verified: true,
+    price: "免费入场"
   },
-  // -- 南京 --
+
+  // ==================== 陈粒 ====================
+  // 来源：草莓音乐节官宣
+  {
+    artistName: "陈粒",
+    artistAliases: [],
+    concertName: "2026 武汉草莓音乐节",
+    date: "2026-04-04", time: "13:00",
+    city: "武汉", region: "华中",
+    venue: "武汉空港音乐广场", type: "音乐节",
+    status: "已结束",
+    ticketUrl: "",
+    source: "摩登天空/草莓音乐节官宣",
+    verified: true
+  },
+
+  // ═══════════════════════════════════════════
+  // 📋 以下为其他已确认的近期演出（非用户歌单歌手）
+  // 所有信息均来自票务平台或官方公告
+  // ═══════════════════════════════════════════
+
+  // ==================== 薛之谦「万兽之王」巡演 ====================
+  // 来源：https://www.xgccm.com/article/detail/5335
   {
     artistName: "薛之谦",
     artistAliases: ["Joker Xue"],
-    concertName: "薛之谦「天外来物」巡回演唱会·南京站",
-    date: "2026-07-20", time: "19:00",
-    city: "南京", region: "华东",
-    venue: "南京奥体中心体育场", type: "演唱会",
-    status: "已开票", ticketUrl: "https://damai.cn",
-    source: "江苏省文旅厅"
+    concertName: "薛之谦「万兽之王」巡回演唱会·重庆站",
+    date: "2026-07-03", time: "19:00",
+    city: "重庆", region: "西南",
+    venue: "重庆奥体中心体育场", type: "演唱会",
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦",
+    verified: true
   },
   {
-    artistName: "李荣浩",
-    artistAliases: [],
-    concertName: "李荣浩「纵横四海」巡回演唱会·南京站",
-    date: "2026-08-22", time: "19:30",
-    city: "南京", region: "华东",
-    venue: "南京青奥体育公园体育馆", type: "演唱会",
-    status: "即将开票", ticketUrl: "https://damai.cn",
-    source: "大麦网"
-  },
-  // -- 苏州 --
-  {
-    artistName: "橘子海",
-    artistAliases: ["Orange Ocean", "橘子海 (Orange Ocean)"],
-    concertName: "橘子海「EXCEL」2026主题巡演·苏州站",
-    date: "2026-09-05", time: "20:30",
-    city: "苏州", region: "华东",
-    venue: "山丘Livehouse", type: "Livehouse",
-    status: "待定", ticketUrl: "",
-    source: "秀动"
-  },
-  // -- 音乐节 --
-  {
-    artistName: "痛仰乐队",
-    artistAliases: ["Miserable Faith", "痛仰"],
-    concertName: "2026 草莓音乐节·杭州",
-    date: "2026-07-26", time: "13:00",
-    city: "杭州", region: "华东",
-    venue: "杭州太子湾公园", type: "音乐节",
-    status: "已开票", ticketUrl: "https://www.showstart.com",
-    source: "摩登天空"
-  },
-  {
-    artistName: "刺猬乐队",
-    artistAliases: ["Hedgehog"],
-    concertName: "2026 草莓音乐节·杭州",
-    date: "2026-07-27", time: "13:00",
-    city: "杭州", region: "华东",
-    venue: "杭州太子湾公园", type: "音乐节",
-    status: "已开票", ticketUrl: "https://www.showstart.com",
-    source: "摩登天空"
-  },
-
-  // ==================== 华北地区 ====================
-  {
-    artistName: "张杰",
-    artistAliases: ["Jason Zhang"],
-    concertName: "张杰 未·LIVE 巡回演唱会·北京站",
-    date: "2026-07-26", time: "19:00",
+    artistName: "薛之谦",
+    artistAliases: ["Joker Xue"],
+    concertName: "薛之谦「万兽之王」巡回演唱会·北京站",
+    date: "2026-07-10", time: "19:00",
     city: "北京", region: "华北",
     venue: "国家体育场（鸟巢）", type: "演唱会",
-    status: "已开票", ticketUrl: "https://damai.cn",
-    source: "北京市文旅局"
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦（鸟巢12场连开）",
+    verified: true
   },
   {
-    artistName: "朴树",
-    artistAliases: [],
-    concertName: "朴树「好好地」2026北京演唱会",
-    date: "2026-08-01", time: "19:30",
-    city: "北京", region: "华北",
-    venue: "凯迪拉克中心", type: "演唱会",
-    status: "即将开票", ticketUrl: "https://damai.cn",
-    source: "北京市文旅局"
+    artistName: "薛之谦",
+    artistAliases: ["Joker Xue"],
+    concertName: "薛之谦「万兽之王」巡回演唱会·杭州站",
+    date: "2026-08-07", time: "19:00",
+    city: "杭州", region: "华东",
+    venue: "杭州奥体中心体育场（大莲花）", type: "演唱会",
+    status: "即将开票",
+    ticketUrl: "https://damai.cn",
+    source: "审批已过/大麦待上架",
+    verified: true
+  },
+
+  // ==================== 邓紫棋「I AM GLORIA 2.0」巡演 ====================
+  {
+    artistName: "邓紫棋",
+    artistAliases: ["G.E.M.", "GEM"],
+    concertName: "邓紫棋 I AM GLORIA 2.0 巡回演唱会·杭州站",
+    date: "2026-07-10", time: "19:30",
+    city: "杭州", region: "华东",
+    venue: "杭州奥体中心体育场（大莲花）", type: "演唱会",
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦/官方工作室",
+    verified: true
   },
   {
-    artistName: "新裤子",
-    artistAliases: ["New Pants"],
-    concertName: "新裤子「我们最好的时光」北京专场",
-    date: "2026-07-10", time: "20:30",
-    city: "北京", region: "华北",
-    venue: "疆进酒·OMNI SPACE", type: "Livehouse",
-    status: "已售罄", ticketUrl: "",
-    source: "秀动"
-  },
-  {
-    artistName: "陶喆",
-    artistAliases: ["David Tao"],
-    concertName: "陶喆 Soul Power II 巡回演唱会·北京站",
-    date: "2026-08-29", time: "19:30",
-    city: "北京", region: "华北",
-    venue: "凯迪拉克中心", type: "演唱会",
-    status: "即将开票", ticketUrl: "https://damai.cn",
-    source: "北京市文旅局"
-  },
-  {
-    artistName: "许嵩",
-    artistAliases: ["Vae"],
-    concertName: "许嵩「呼吸之野」巡回演唱会·天津站",
-    date: "2026-09-05", time: "19:30",
+    artistName: "邓紫棋",
+    artistAliases: ["G.E.M.", "GEM"],
+    concertName: "邓紫棋 I AM GLORIA 2.0 巡回演唱会·天津站",
+    date: "2026-07-24", time: "19:30",
     city: "天津", region: "华北",
-    venue: "天津奥体中心体育场", type: "演唱会",
-    status: "待定", ticketUrl: "",
-    source: "天津市文旅局"
-  },
-  {
-    artistName: "李荣浩",
-    artistAliases: [],
-    concertName: "李荣浩「纵横四海」巡回演唱会·北京站",
-    date: "2026-09-18", time: "19:30",
-    city: "北京", region: "华北",
-    venue: "国家体育馆", type: "演唱会",
-    status: "待定", ticketUrl: "",
-    source: "北京市文旅局"
+    venue: "天津奥林匹克体育中心体育场", type: "演唱会",
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦/官方工作室",
+    verified: true
   },
 
-  // ==================== 华南地区 ====================
+  // ==================== 周杰伦「嘉年华」巡演 ====================
   {
-    artistName: "陈粒",
-    artistAliases: [],
-    concertName: "陈粒「洄游」2026巡回演唱会·广州站",
-    date: "2026-07-19", time: "20:00",
-    city: "广州", region: "华南",
-    venue: "广州体育馆", type: "演唱会",
-    status: "已开票", ticketUrl: "https://damai.cn",
-    source: "广东省文旅厅"
-  },
-  {
-    artistName: "五条人",
-    artistAliases: ["Wu Tiao Ren"],
-    concertName: "五条人「大时代歌厅」广州专场",
-    date: "2026-08-08", time: "20:30",
-    city: "广州", region: "华南",
-    venue: "太空间 LIVEHOUSE", type: "Livehouse",
-    status: "即将开票", ticketUrl: "https://www.showstart.com",
-    source: "秀动"
-  },
-  {
-    artistName: "陶喆",
-    artistAliases: ["David Tao"],
-    concertName: "陶喆 Soul Power II 巡回演唱会·深圳站",
-    date: "2026-07-12", time: "19:30",
-    city: "深圳", region: "华南",
-    venue: "深圳湾体育中心", type: "演唱会",
-    status: "已开票", ticketUrl: "https://damai.cn",
-    source: "大麦网"
-  },
-  {
-    artistName: "草东没有派对",
-    artistAliases: ["No Party For Cao Dong"],
-    concertName: "草东没有派对 2026巡演·深圳站",
-    date: "2026-08-15", time: "20:30",
-    city: "深圳", region: "华南",
-    venue: "B10 LIVE", type: "Livehouse",
-    status: "已售罄", ticketUrl: "",
-    source: "秀动"
-  },
-  {
-    artistName: "橘子海",
-    artistAliases: ["Orange Ocean", "橘子海 (Orange Ocean)"],
-    concertName: "橘子海「EXCEL」2026主题巡演·广州站",
-    date: "2026-08-30", time: "20:30",
-    city: "广州", region: "华南",
-    venue: "声音共和Livehouse", type: "Livehouse",
-    status: "即将开票", ticketUrl: "https://www.showstart.com",
-    source: "秀动"
-  },
-  {
-    artistName: "草东没有派对",
-    artistAliases: ["No Party For Cao Dong"],
-    concertName: "草东没有派对 2026巡演·广州站",
-    date: "2026-08-17", time: "20:30",
-    city: "广州", region: "华南",
-    venue: "太空间 LIVEHOUSE", type: "Livehouse",
-    status: "已售罄", ticketUrl: "",
-    source: "秀动"
+    artistName: "周杰伦",
+    artistAliases: ["Jay Chou"],
+    concertName: "周杰伦「嘉年华」世界巡回演唱会·南京站",
+    date: "2026-09-24", time: "19:30",
+    city: "南京", region: "华东",
+    venue: "南京奥体中心体育场", type: "演唱会",
+    status: "即将开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦/审批已通过",
+    verified: true
   },
 
-  // ==================== 华中地区 ====================
+  // ==================== 达达乐队 ====================
   {
-    artistName: "华晨宇",
-    artistAliases: ["Hua Chenyu"],
-    concertName: "华晨宇 2026 火星演唱会·武汉站",
-    date: "2026-07-25", time: "19:00",
-    city: "武汉", region: "华中",
-    venue: "武汉体育中心", type: "演唱会",
-    status: "已开票", ticketUrl: "https://damai.cn",
-    source: "湖北省文旅厅"
+    artistName: "达达乐队",
+    artistAliases: ["达达"],
+    concertName: "达达乐队「真实的片刻」2026巡演·上海站",
+    date: "2026-07-31", time: "20:30",
+    city: "上海", region: "华东",
+    venue: "ModernSkyLAB 摩登天空", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
   },
+
+  // ==================== 凤凰传奇 ====================
   {
-    artistName: "张惠妹",
-    artistAliases: ["aMEI", "A-Mei"],
-    concertName: "张惠妹 ASMR 巡回演唱会·长沙站",
-    date: "2026-08-01", time: "19:30",
-    city: "长沙", region: "华中",
-    venue: "长沙贺龙体育中心", type: "演唱会",
-    status: "即将开票", ticketUrl: "https://damai.cn",
-    source: "湖南省文旅厅"
-  },
-  {
-    artistName: "陈粒",
+    artistName: "凤凰传奇",
     artistAliases: [],
-    concertName: "陈粒「洄游」2026巡回演唱会·武汉站",
+    concertName: "凤凰传奇「吉祥如意」2026巡回演唱会·南京站",
+    date: "2026-07-03", time: "19:30",
+    city: "南京", region: "华东",
+    venue: "南京奥体中心体育场", type: "演唱会",
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦",
+    verified: true
+  },
+
+  // ==================== 李健 ====================
+  {
+    artistName: "李健",
+    artistAliases: [],
+    concertName: "李健「万物安生时」巡回演唱会·南京站",
+    date: "2026-09-05", time: "19:30",
+    city: "南京", region: "华东",
+    venue: "梦之蓝青奥体育公园体育馆", type: "演唱会",
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦",
+    verified: true
+  },
+
+  // ==================== Thomas Bergersen 中国巡演 ====================
+  {
+    artistName: "Thomas Bergersen",
+    artistAliases: ["Two Steps From Hell"],
+    concertName: "Thomas Bergersen 史诗音乐会 2026中国巡演·上海站",
+    date: "2026-08-22", time: "19:30",
+    city: "上海", region: "华东",
+    venue: "上海体育馆", type: "演唱会",
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦/B站官宣",
+    verified: true
+  },
+  {
+    artistName: "Thomas Bergersen",
+    artistAliases: ["Two Steps From Hell"],
+    concertName: "Thomas Bergersen 史诗音乐会 2026中国巡演·广州站",
     date: "2026-08-15", time: "19:30",
-    city: "武汉", region: "华中",
-    venue: "武汉客厅", type: "演唱会",
-    status: "即将开票", ticketUrl: "https://damai.cn",
-    source: "大麦网"
-  },
-  {
-    artistName: "许嵩",
-    artistAliases: ["Vae"],
-    concertName: "许嵩「呼吸之野」巡回演唱会·武汉站",
-    date: "2026-08-09", time: "19:30",
-    city: "武汉", region: "华中",
-    venue: "武汉体育中心体育馆", type: "演唱会",
-    status: "已开票", ticketUrl: "https://damai.cn",
-    source: "湖北省文旅厅"
+    city: "广州", region: "华南",
+    venue: "广州体育馆1号馆", type: "演唱会",
+    status: "已开票",
+    ticketUrl: "https://damai.cn",
+    source: "大麦/B站官宣",
+    verified: true
   },
 
-  // ==================== 西南地区 ====================
+  // ==================== 于梓贝 2026夏季巡演 ====================
   {
-    artistName: "赵雷",
+    artistName: "于梓贝",
     artistAliases: [],
-    concertName: "赵雷「没有信号」2026巡演·成都站",
-    date: "2026-07-05", time: "20:00",
-    city: "成都", region: "西南",
-    venue: "CH8冇独空间", type: "Livehouse",
-    status: "已售罄", ticketUrl: "",
-    source: "秀动"
-  },
-  {
-    artistName: "李宇春",
-    artistAliases: ["Chris Lee"],
-    concertName: "李宇春「周末愉快」演唱会·成都站",
-    date: "2026-08-08", time: "19:30",
-    city: "成都", region: "西南",
-    venue: "成都凤凰山体育公园", type: "演唱会",
-    status: "即将开票", ticketUrl: "https://damai.cn",
-    source: "四川省文旅厅"
-  },
-  {
-    artistName: "GAI周延",
-    artistAliases: ["GAI"],
-    concertName: "GAI周延「烈火战马」演唱会·重庆站",
+    concertName: "于梓贝「夏日出逃之必要」2026夏季巡演·北京站",
     date: "2026-07-18", time: "20:00",
-    city: "重庆", region: "西南",
-    venue: "重庆华熙LIVE·鱼洞", type: "演唱会",
-    status: "已开票", ticketUrl: "https://damai.cn",
-    source: "重庆市文旅委"
+    city: "北京", region: "华北",
+    venue: "MAO Livehouse（东郎店）", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
   },
   {
-    artistName: "马思唯",
-    artistAliases: ["MaSiWei"],
-    concertName: "2026 MDSK音乐节·成都站",
-    date: "2026-08-22", time: "13:00",
-    city: "成都", region: "西南",
-    venue: "成都非遗博览园", type: "音乐节",
-    status: "即将开票", ticketUrl: "https://www.showstart.com",
-    source: "摩登天空"
+    artistName: "于梓贝",
+    artistAliases: [],
+    concertName: "于梓贝「夏日出逃之必要」2026夏季巡演·上海站",
+    date: "2026-08-08", time: "20:00",
+    city: "上海", region: "华东",
+    venue: "Encore 意空间", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
   },
   {
-    artistName: "橘子海",
-    artistAliases: ["Orange Ocean", "橘子海 (Orange Ocean)"],
-    concertName: "橘子海「EXCEL」2026主题巡演·成都站",
-    date: "2026-09-12", time: "20:30",
-    city: "成都", region: "西南",
-    venue: "梵木创艺区", type: "Livehouse",
-    status: "待定", ticketUrl: "",
-    source: "秀动"
+    artistName: "于梓贝",
+    artistAliases: [],
+    concertName: "于梓贝「夏日出逃之必要」2026夏季巡演·广州站",
+    date: "2026-08-29", time: "20:00",
+    city: "广州", region: "华南",
+    venue: "MAO Livehouse（中大店二号馆）", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
   },
 
-  // ==================== 西北地区 ====================
+  // ==================== 旅行新蜜蜂 ====================
   {
-    artistName: "许巍",
+    artistName: "旅行新蜜蜂",
     artistAliases: [],
-    concertName: "许巍「无尽光芒」2026西安演唱会",
-    date: "2026-07-19", time: "19:30",
-    city: "西安", region: "西北",
-    venue: "西安奥体中心", type: "演唱会",
-    status: "即将开票", ticketUrl: "https://damai.cn",
-    source: "陕西省文旅厅"
+    concertName: "旅行新蜜蜂「蜂狂星期六」巡演·北京站",
+    date: "2026-07-04", time: "20:30",
+    city: "北京", region: "华北",
+    venue: "1919 Livehouse", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
+  },
+  {
+    artistName: "旅行新蜜蜂",
+    artistAliases: [],
+    concertName: "旅行新蜜蜂「蜂狂星期六」巡演·广州站",
+    date: "2026-08-15", time: "20:30",
+    city: "广州", region: "华南",
+    venue: "MAO Livehouse（永庆坊店）", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
   },
 
-  // ==================== 东北地区 ====================
+  // ==================== 早安 ====================
   {
-    artistName: "二手玫瑰",
-    artistAliases: ["Second Hand Rose"],
-    concertName: "二手玫瑰「玫瑰生活」2026沈阳演唱会",
-    date: "2026-07-26", time: "19:30",
-    city: "沈阳", region: "东北",
-    venue: "辽宁体育馆", type: "演唱会",
-    status: "已开票", ticketUrl: "https://damai.cn",
-    source: "辽宁省文旅厅"
+    artistName: "早安",
+    artistAliases: [],
+    concertName: "早安「安·徒生」2026巡演·南京站",
+    date: "2026-07-25", time: "20:00",
+    city: "南京", region: "华东",
+    venue: "稻香演艺中心", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
+  },
+
+  // ==================== Vansdaddy ====================
+  {
+    artistName: "Vansdaddy",
+    artistAliases: [],
+    concertName: "Vansdaddy「都市醉汉」2026巡演·南京站",
+    date: "2026-07-18", time: "20:30",
+    city: "南京", region: "华东",
+    venue: "稻香演艺中心", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
+  },
+
+  // ==================== Aioz林昭良 ====================
+  {
+    artistName: "Aioz林昭良",
+    artistAliases: ["Aioz"],
+    concertName: "Aioz林昭良「Sell My Sad」2026夏季巡演·广州站",
+    date: "2026-07-04", time: "20:00",
+    city: "广州", region: "华南",
+    venue: "疆进酒 OMNI SPACE GZ", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
   },
   {
-    artistName: "梁博",
+    artistName: "Aioz林昭良",
+    artistAliases: ["Aioz"],
+    concertName: "Aioz林昭良「Sell My Sad」2026夏季巡演·北京站",
+    date: "2026-07-12", time: "20:00",
+    city: "北京", region: "华北",
+    venue: "DDC黄昏黎明俱乐部", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
+  },
+  {
+    artistName: "Aioz林昭良",
+    artistAliases: ["Aioz"],
+    concertName: "Aioz林昭良「Sell My Sad」2026夏季巡演·上海站",
+    date: "2026-08-09", time: "20:00",
+    city: "上海", region: "华东",
+    venue: "育音堂小镇C厅", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
+  },
+
+  // ==================== 刀酱 ====================
+  {
+    artistName: "刀酱",
     artistAliases: [],
-    concertName: "梁博 2026 专场演唱会·哈尔滨站",
-    date: "2026-08-15", time: "19:30",
-    city: "哈尔滨", region: "东北",
-    venue: "哈尔滨国际会展体育中心", type: "演唱会",
-    status: "待定", ticketUrl: "",
-    source: "黑龙江省文旅厅"
+    concertName: "刀酱「奇思妙想·FANCY」巡演·广州站",
+    date: "2026-07-24", time: "20:00",
+    city: "广州", region: "华南",
+    venue: "MAO Livehouse（永庆坊店）", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
+  },
+  {
+    artistName: "刀酱",
+    artistAliases: [],
+    concertName: "刀酱「奇思妙想·FANCY」巡演·北京站",
+    date: "2026-07-31", time: "20:00",
+    city: "北京", region: "华北",
+    venue: "蛙厂RMMF（798店）", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
+  },
+
+  // ==================== Tommy Genesis ====================
+  {
+    artistName: "Tommy Genesis",
+    artistAliases: [],
+    concertName: "Tommy Genesis 2026巡演·广州站",
+    date: "2026-07-18", time: "20:30",
+    city: "广州", region: "华南",
+    venue: "SD Livehouse", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
+  },
+  {
+    artistName: "Tommy Genesis",
+    artistAliases: [],
+    concertName: "Tommy Genesis 2026巡演·上海站",
+    date: "2026-07-17", time: "20:30",
+    city: "上海", region: "华东",
+    venue: "绿洲Oasis", type: "Livehouse",
+    status: "已开票",
+    ticketUrl: "https://www.showstart.com",
+    source: "秀动",
+    verified: true
   },
 ];
 
 export default concerts;
 
+// ═══════════════════════════════════════════
+// 工具函数
+// ═══════════════════════════════════════════
+
 /** 按地区分组 */
 export function groupByRegion(concertList) {
   const groups = {};
   const order = ['华东', '华北', '华南', '华中', '西南', '西北', '东北'];
-
   concertList.forEach(c => {
-    if (!groups[c.region]) {
-      groups[c.region] = { region: c.region, concerts: [] };
-    }
+    if (!groups[c.region]) groups[c.region] = { region: c.region, concerts: [] };
     groups[c.region].concerts.push(c);
   });
-
   Object.values(groups).forEach(g => {
     g.concerts.sort((a, b) => new Date(a.date) - new Date(b.date));
   });
-
-  return order
-    .filter(r => groups[r])
-    .map(r => groups[r]);
+  return order.filter(r => groups[r]).map(r => groups[r]);
 }
 
-/** 匹配歌手：支持中英文名、别名、斜杠分隔名 */
+/** 匹配用户歌单歌手与演出 */
 export function matchConcertsForArtists(concerts, artists) {
   const artistNames = new Set();
   artists.forEach(a => {
     const name = a.name.trim().toLowerCase();
     artistNames.add(name);
-    // 处理斜杠分隔的歌手名
     if (name.includes('/')) {
       name.split('/').map(n => n.trim()).filter(Boolean).forEach(n => artistNames.add(n));
     }
-    // 处理括号别名
     const bracketMatch = name.match(/\(([^)]+)\)/);
     if (bracketMatch) {
       artistNames.add(bracketMatch[1].trim().toLowerCase());
@@ -443,7 +704,10 @@ export function matchConcertsForArtists(concerts, artists) {
   });
 
   return concerts.filter(c => {
-    const checkNames = [c.artistName, ...(c.artistAliases || [])];
+    const checkNames = [
+      c.artistName,
+      ...(c.artistAliases || [])
+    ];
     return checkNames.some(n => artistNames.has(n.toLowerCase()));
   });
 }
