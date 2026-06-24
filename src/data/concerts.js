@@ -672,18 +672,48 @@ export default concerts;
 // 工具函数
 // ═══════════════════════════════════════════
 
-/** 按地区分组 */
+/** 按地区分组（上海独立在最前） */
 export function groupByRegion(concertList) {
   const groups = {};
-  const order = ['华东', '华北', '华南', '华中', '西南', '西北', '东北'];
+  const order = ['上海', '华东', '华北', '华南', '华中', '西南', '西北', '东北'];
+
   concertList.forEach(c => {
-    if (!groups[c.region]) groups[c.region] = { region: c.region, concerts: [] };
-    groups[c.region].concerts.push(c);
+    // 上海独立分组
+    const regionKey = c.city === '上海' ? '上海' : c.region;
+    if (!groups[regionKey]) groups[regionKey] = { region: regionKey, concerts: [] };
+    groups[regionKey].concerts.push(c);
   });
+
+  // 去重：华东地区里剔除上海
+  if (groups['华东']) {
+    groups['华东'].concerts = groups['华东'].concerts.filter(c => c.city !== '上海');
+  }
+
+  // 删除空的华东分组
+  if (groups['华东'] && groups['华东'].concerts.length === 0) {
+    delete groups['华东'];
+  }
+
   Object.values(groups).forEach(g => {
     g.concerts.sort((a, b) => new Date(a.date) - new Date(b.date));
   });
-  return order.filter(r => groups[r]).map(r => groups[r]);
+
+  return order.filter(r => groups[r] && groups[r].concerts.length > 0).map(r => groups[r]);
+}
+
+/** 按歌手分组：汇总每个歌手在哪些城市有多少场演出 */
+export function groupByArtist(concertList) {
+  const groups = {};
+  concertList.forEach(c => {
+    if (!groups[c.artistName]) {
+      groups[c.artistName] = { artistName: c.artistName, concerts: [], cities: new Set() };
+    }
+    groups[c.artistName].concerts.push(c);
+    groups[c.artistName].cities.add(c.city);
+  });
+  return Object.values(groups)
+    .map(g => ({ ...g, cityList: [...g.cities], count: g.concerts.length }))
+    .sort((a, b) => b.count - a.count);
 }
 
 /** 匹配用户歌单歌手与演出 */

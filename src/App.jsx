@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import RegionBlock from './components/RegionBlock';
 import ArtistPanel from './components/ArtistPanel';
+import ArtistActivitySummary from './components/ArtistActivitySummary';
 import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
 import EmptyState from './components/EmptyState';
@@ -25,7 +26,6 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
-  const [apiAvailable, setApiAvailable] = useState(null); // null=unknown, true/false
   const autoLoaded = useRef(false);
 
   // 启动时自动加载预置用户 "每天都在冬眠-" 的数据
@@ -63,7 +63,6 @@ export default function App() {
     try {
       const resolved = await resolveUserId(input.trim());
       setNeteaseId(resolved.uid);
-      setApiAvailable(true);
 
       const userArtists = await getAllUserArtists(resolved.uid);
       setArtists(userArtists);
@@ -80,16 +79,12 @@ export default function App() {
       }
     } catch (err) {
       console.error('获取歌单失败:', err);
-      setApiAvailable(false);
 
-      // 检测CORS/网络错误，给出具体建议
       const msg = err.message || '';
       if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('CORS')) {
         setError(
-          '⚠️ 浏览器安全策略阻止了跨域请求。请尝试：\n' +
-          '① 使用 Chrome/Edge 并允许第三方Cookie\n' +
-          '② 暂时关闭浏览器的跨域限制（仅开发时）\n' +
-          '③ 或点击下方按钮查看您的预置歌单数据'
+          '⚠️ 浏览器安全策略阻止了跨域请求。\n' +
+          '因为你在上海，网站已预置你的歌单数据，无需搜索即可查看。'
         );
       } else {
         setError(`获取失败: ${msg}`);
@@ -154,7 +149,7 @@ export default function App() {
               : `🎤 全部演出信息 (${matchedConcerts.length} 场)`}
           </h2>
           <p className="results-subtitle">
-            数据来源：各地文旅局营业性演出许可 · 大麦/秀动票务平台 · 小红书@不止live
+            数据来源：秀动/大麦官方售票 · 艺人工作室官宣 · 小红书@不止live · ⚠️ 均为已确认的真实演出
           </p>
         </div>
 
@@ -162,6 +157,15 @@ export default function App() {
           <EmptyState neteaseId={displayName} onReset={handleReset} />
         )}
 
+        {/* 歌手活动摘要：一眼看到有哪些喜欢的歌手有演出 */}
+        {!loading && matchedConcerts.length > 0 && hasSearched && (
+          <ArtistActivitySummary
+            concerts={matchedConcerts.filter(c => c.status !== '已结束')}
+            userArtists={artists}
+          />
+        )}
+
+        {/* 按地区展示，上海在最前面 */}
         {!loading && groupedConcerts.map(group => (
           <RegionBlock
             key={group.region}

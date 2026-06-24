@@ -2,7 +2,8 @@ import React from 'react';
 import ConcertCard from './ConcertCard';
 
 const regionMeta = {
-  '华东': { icon: '🌊', color: '#4ECDC4', cities: '上海·杭州·南京·苏州·合肥·厦门' },
+  '上海': { icon: '🏙️', color: '#FFD700', cities: '瓦肆·育音堂·ModernSkyLAB·MAO·Encore' },
+  '华东': { icon: '🌊', color: '#4ECDC4', cities: '杭州·南京·苏州·合肥·厦门' },
   '华北': { icon: '🏛️', color: '#FF6B6B', cities: '北京·天津·石家庄·太原' },
   '华南': { icon: '🌴', color: '#45B7D1', cities: '广州·深圳·南宁·海口' },
   '华中': { icon: '🏯', color: '#F7DC6F', cities: '武汉·长沙·郑州·南昌' },
